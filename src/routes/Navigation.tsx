@@ -64,3 +64,9 @@ export const Navigation = () => {
   /* <Route path="lazy2" element={<LazyPage2 />} />
             <Route path="lazy3" element={<LazyPage3 />} /> */
 }
+
+// para subir a github
+// 1-git branch
+// 2-git add .
+// 3-git commit -m 'LazyLoad Basico listo'
+// 4-
