@@ -1,72 +1,52 @@
-import { BrowserRouter, Navigate } from "react-router-dom";
-import { Routes, Route, NavLink } from "react-router-dom";
-import logo from "../assets/react.svg";
-import { routes } from "./routes";
-import { Suspense } from "react";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  NavLink,
+} from "react-router-dom";
 
-// import { LazyPage1, LazyPage2, LazyPage3 } from "../01-lazyload/pages";
+import logo from "../assets/react.svg";
+import { ShoppingPage } from "../02-component-patterns/pages/ShoppingPage";
 
 export const Navigation = () => {
   return (
-    <Suspense fallback={<span>Loading...</span>}>
-      <BrowserRouter>
-        <div className="main-layout">
-          <nav>
-            <img src={logo} alt="React Logo" />
-            <ul>
-              {routes.map(({ to, name }) => (
-                <li key={to}>
-                  <NavLink
-                    to={to}
-                    className={({ isActive }) => (isActive ? "nav-active" : "")}
-                  >
-                    {name}
-                  </NavLink>
-                </li>
-              ))}
-            </ul>
-          </nav>
-          <Routes>
-            {routes.map(({ path, Component }) => (
-              <Route key={path} path={path} element={<Component />} />
-            ))}
+    <Router>
+      <div className="main-layout">
+        <nav>
+          <img src={logo} alt="React Logo" />
+          <ul>
+            <li>
+              <NavLink to="/" activeClassName="nav-active" exact>
+                Shopping
+              </NavLink>
+            </li>
+            <li>
+              <NavLink to="/about" activeClassName="nav-active" exact>
+                About
+              </NavLink>
+            </li>
+            <li>
+              <NavLink to="/users" activeClassName="nav-active" exact>
+                Users
+              </NavLink>
+            </li>
+          </ul>
+        </nav>
 
-            <Route path="/*" element={<Navigate to={routes[0].to} replace />} />
-          </Routes>
-        </div>
-      </BrowserRouter>
-    </Suspense>
+        {/* A <Switch> looks through its children <Route>s and
+            renders the first one that matches the current URL. */}
+        <Switch>
+          <Route path="/about">
+            <h1>About</h1>
+          </Route>
+          <Route path="/users">
+            <h1>Users</h1>
+          </Route>
+          <Route path="/">
+            <ShoppingPage />
+          </Route>
+        </Switch>
+      </div>
+    </Router>
   );
 };
-
-// instalar en terminal,o no funcionara los Router..
-// npm add  react-router-dom@6
-
-{
-  /* <li>
-                <NavLink
-                  to="/lazy2"
-                  className={({ isActive }) => (isActive ? "nav-active" : "")}
-                >
-                  Lazy 2
-                </NavLink>
-              </li>
-              <li>
-                <NavLink
-                  to="/lazy3"
-                  className={({ isActive }) => (isActive ? "nav-active" : "")}
-                >
-                  Lazy 3
-                </NavLink>
-              </li> */
-}
-{
-  /* <Route path="lazy2" element={<LazyPage2 />} />
-            <Route path="lazy3" element={<LazyPage3 />} /> */
-}
-
-// para subir a github
-// 1-git branch
-// 2-git add .
-// 3-git commit -m 'LazyLoad Basico listo'
-// 4-
