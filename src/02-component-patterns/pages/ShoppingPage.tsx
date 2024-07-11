@@ -1,3 +1,4 @@
+import "../styles/custom-styles.css";
 import {
   ProductCard,
   ProductImage,
@@ -14,6 +15,7 @@ const product = {
 export const ShoppingPage = () => {
   return (
     <div>
+      {/* style={{backgroundColor: 'red'}} */}
       <h1>Shopping Store</h1>
       <hr />
 
@@ -24,20 +26,33 @@ export const ShoppingPage = () => {
           flexWrap: "wrap",
         }}
       >
-        <ProductCard product={product}>
-          <ProductCard.Image />
-          <ProductCard.Title title={"Hola Mundo"} />
-          <ProductCard.Buttons />
+        <ProductCard product={product} className="bg-dark text-white">
+          <ProductCard.Image className="custom-image" />
+          <ProductCard.Title className="text-bold" activeClass="active" />
+          <ProductCard.Buttons className="custom-buttons" />
         </ProductCard>
 
-        <ProductCard product={product}>
-          <ProductImage />
-          <ProductTitle />
+        <ProductCard product={product} className="bg-dark text-white">
+          <ProductImage className="custom-image" />
+          <ProductTitle className="text-bold" activeClass="active" />
+          <ProductButtons className="custom-buttons" />
+        </ProductCard>
+
+        <ProductCard
+          product={product}
+          style={{
+            backgroundColor: "#70D1F8",
+          }}
+        >
+          <ProductImage
+            style={{ boxShadow: "10px 10px 10px rgba(0,0,0,0.2" }}
+          />
+          <ProductTitle style={{ fontWeight: "bold" }} />
           <ProductButtons
-          // increaseBy={function (value: number): void {
-          //   throw new Error("Function not implemented");
-          // }}
-          // counter={0}
+            style={{
+              display: "flex",
+              justifyContent: "end",
+            }}
           />
         </ProductCard>
       </div>

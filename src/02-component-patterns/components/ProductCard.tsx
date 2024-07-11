@@ -1,14 +1,39 @@
-import styles from "../styles/styles.module.css";
-// import noImage from "../assets/no-image.jpg";
 import { useProduct } from "../hooks/useProduct";
 import { createContext } from "react";
+import styles from "../styles/custom-styles.css";
+import { ProductContextProps, Product } from "../interfaces/interfaces";
 
+export const ProductContext = createContext({} as ProductContextProps);
+const { Provider } = ProductContext;
+
+export interface Props {
+  product: Product;
+  children?: React.ReactElement | React.ReactElement[];
+  className?: string;
+  style?: React.CSSProperties;
+}
+
+export const ProductCard = ({ children, product, className, style }: Props) => {
+  const { counter, increaseBy } = useProduct();
+
+  return (
+    <Provider value={{ counter, increaseBy, product }}>
+      <div className={`${styles.productCard} ${className}`} style={style}>
+        {children}
+
+        {/* <ProductImage img={product.img} />
+      {/* <img className={styles.productImg} src={noImage} alt="Coffee Mug" /> */}
+        {/* <ProductTitle title={product.title} /> */}
+        {/* <ProductButtons increaseBy={increaseBy} counter={counter} />  */}
+      </div>
+    </Provider>
+  );
+};
+
+// ProductCard.Title = ProductTitle;
+// ProductCard.Image = ProductImage;
+// ProductCard.Button = ProductButtons;
 //import { createContext } from "react";
-import {
-  ProductCardProps,
-  ProductContextProps,
-} from "../interfaces/interfaces";
-
 // import { ProductTitle } from "./ProductTitle";
 // import { ProductImage } from "./ProductImage";
 // import { ProductButtons } from "./ProductButtons";
@@ -29,10 +54,6 @@ import {
 //   increaseBy: (value: number) => void;
 //   product: Product;
 // }
-
-export const ProductContext = createContext({} as ProductContextProps);
-const { Provider } = ProductContext;
-
 //!exportado a ProductImage.tsx
 
 // export const productImage = ({ img = "" }) => {
@@ -68,12 +89,12 @@ const { Provider } = ProductContext;
 //   );
 // };
 
-interface ProductButtons {
-  increaseBy: (value: number) => void;
-  counter: number;
-}
-
 //! exportado a ProcuctButton.tsx
+// interface ProductButtons {
+//   increaseBy: (value: number) => void;
+//   counter: number;
+// }
+
 // export const ProductButtons = () => {
 //   const { increaseBy, counter } = useContext(ProductContext);
 
@@ -93,24 +114,3 @@ interface ProductButtons {
 //!
 // export const ProductContext = createContext({} as ProductContextProps);
 // const { Provider } = ProductContext;
-
-export const ProductCard = ({ children, product }: ProductCardProps) => {
-  const { counter, increaseBy } = useProduct();
-
-  return (
-    <Provider value={{ counter, increaseBy, product }}>
-      <div className={styles.productCard}>
-        {children}
-
-        {/* <ProductImage img={product.img} />
-      {/* <img className={styles.productImg} src={noImage} alt="Coffee Mug" /> */}
-        {/* <ProductTitle title={product.title} /> */}
-        {/* <ProductButtons increaseBy={increaseBy} counter={counter} />  */}
-      </div>
-    </Provider>
-  );
-};
-
-// ProductCard.Title = ProductTitle;
-// ProductCard.Image = ProductImage;
-// ProductCard.Button = ProductButtons;
